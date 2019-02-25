@@ -1,0 +1,19 @@
+.addBtn {
+  float: right;
+  margin-bottom: 20px;
+}
+
+.btn_operation {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.btn_operation button {
+  margin-right: 20px;
+}
+.content-item{
+    outline: none;
+}
+.display{
+    display: none
+}

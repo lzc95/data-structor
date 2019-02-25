@@ -1,0 +1,32 @@
+.tree-wrap {
+  width: 300px;
+  position: relative;
+}
+
+.parent-operation,
+.root-operation {
+  display: none;
+  font-size: 16px;
+  color: #08c;
+}
+
+.root-container:hover .root-operation {
+  display: inline-block;
+}
+
+.parent-container:hover .parent-operation {
+  display: inline-block;
+}
+
+.parent-operation .icon {
+  margin-left: 7px;
+}
+
+/* 小节 */
+.sectionForm{
+  position: absolute;
+  width: 500px;
+  top:10px;
+  left:400px;
+  border: 1px dashed #08c;
+}

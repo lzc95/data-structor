@@ -1,0 +1,59 @@
+html,body,div,p{
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  width:64px;
+  height:64px;
+  margin-left:10px;
+  animation:logo-spin infinite 20s linear;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.title {
+  color: #fff;
+  font-size: 20px;
+}
+
+.spin{
+  width:200px;
+  height: 200px;
+  margin-top:-100px;
+  margin-left: -100px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+.userInfo{
+  color: #fff;
+  font-size: 16px;
+  position: absolute;
+  right:0px;
+}
+.logout{
+  display: inline-block;
+  width: 80px;
+  cursor: pointer;
+  margin-left:20px;
+}
+.ContentContainer{
+  padding-left: 250px;
+  padding-top: 80px;
+  height:100%;
+  min-height: 100vh;
+  background:#fff;
+  padding-right:50px;
+}
+.close{
+  padding-left: 130px;
+}

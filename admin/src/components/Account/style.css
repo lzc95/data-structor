@@ -1,0 +1,9 @@
+.changePassword p{
+  width: 500px;
+  text-align: right;
+}
+
+.password-item{
+  width: 400px;
+  margin-bottom: 20px;
+}
