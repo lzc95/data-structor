@@ -2,7 +2,7 @@
   "host": "localhost",
   "port": 3306,
   "userName": "root",
-  "password": "luozc@19892",
+  "password": "luozc@1995",
   "databaseName": "data_structor",
   "multipleStatements": true
 }

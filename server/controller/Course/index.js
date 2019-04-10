@@ -1,6 +1,6 @@
 const model = require('../../models/index')
 const fs = require('fs')
-const path = require('path')
+const pathLib = require('path')
 
 
 let Course = function () {
@@ -48,7 +48,7 @@ Course.getDirectory = async (ctx, next) => {
     }
 }
 
-Course.saveChapter = async (ctx, next) =>{
+Course.addChapter = async (ctx, next) =>{
     try {
         let { title } = ctx.request.body;
         let res = await model.handleDirectory({ parent_id: 1, title, type: 1});
@@ -57,6 +57,47 @@ Course.saveChapter = async (ctx, next) =>{
             ctx.body = {
                 code: 0,
                 msg: '保存成功'
+            }
+        } else {
+            ctx.body = {
+                code: -1,
+                msg: '保存失败'
+            }
+        }
+    } catch (err) {
+
+    }
+}
+
+Course.editChapter = async (ctx, next) =>{
+    try {
+        let { id,title } = ctx.request.body;
+        let res = await model.editDirectory({ id, title});
+        if (res) {
+            ctx.body = {
+                code: 0,
+                msg: '保存成功'
+            }
+        } else {
+            ctx.body = {
+                code: -1,
+                msg: '保存失败'
+            }
+        }
+    } catch (err) {
+
+    }
+}
+
+Course.delChapter = async (ctx, next) =>{
+    try {
+        let { id} = ctx.request.body;
+        console.log(id)
+        let res = await model.delDirectory({ id});
+        if (res) {
+            ctx.body = {
+                code: 0,
+                msg: '删除成功'
             }
         } else {
             ctx.body = {
@@ -89,9 +130,39 @@ Course.addSection = async(ctx, next)=>{
     }
 }
 
+Course.saveSectionForm = async(ctx, next)=>{
+    try{
+        let { tId, title } = ctx.request.body;
+        let res = await model.saveSectionForm({ tId, title});
+        if (res) {
+            ctx.body = {
+                code: 0,
+                msg: '保存成功'
+            }
+        } else {
+            ctx.body = {
+                code: -1,
+                msg: '保存失败'
+            }
+        }
+    } catch(err){
+
+    }
+}
+
 // 上传课件资料
 Course.uploadCourseFile = async (ctx, next) =>{
     console.log(ctx.request.files,'===================')
+    const oldPath=ctx.request.files.path;
+    const newPath=ctx.request.files.path+pathLib.parse(ctx.request.files.originalname).ext;
+    const newFileName=ctx.request.files.name+pathLib.parse(ctx.request.files.originalname).ext;
+    fs.rename(oldPath,newPath,(err)=>{
+        if(err){
+            console.error(err);  
+        } else {
+           
+        }
+    })
     ctx.body={
         code:0,
         msg:'success'

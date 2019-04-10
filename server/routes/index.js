@@ -23,8 +23,12 @@ router.post('/viewNotice', Notice.viewNotice)
 router.post('/publishNotice', Notice.publishNotice)
 
 router.get('/getDirectory', Course.getDirectory)
-router.post('/saveChapter', Course.saveChapter)
+router.post('/addChapter', Course.addChapter)
+router.post('/editChapter', Course.editChapter)
+router.post('/delChapter', Course.delChapter)
+
 router.post('/addSection', Course.addSection)
+router.post('/saveSectionForm', Course.saveSectionForm)
 router.post('/uploadCourseFile', Course.uploadCourseFile)
 
 module.exports = router

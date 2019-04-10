@@ -9,7 +9,10 @@ module.exports={
 
     // 课程目录
     getDirectory: prefix + '/getDirectory',
-    saveChapter: prefix +'/saveChapter',
+    addChapter: prefix +'/addChapter',
+    editChapter: prefix +'/editChapter',
+    delChapter: prefix +'/delChapter',
     addSection: prefix + '/addSection',
+    saveSectionForm: prefix + '/saveSectionForm',
     uploadCourseFile: prefix + '/uploadCourseFile'
 }

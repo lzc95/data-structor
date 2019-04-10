@@ -16,10 +16,12 @@ class Course extends React.Component {
     this.state = {
       visibleChapter: false,
       visibleSection: false,
+      visibleSectionForm: false,
       isAddChapter: true,
       chapterTitle:'',
       sectionTitle: '',
       chaperId: -1,
+      sectionId:-1,
       dataTree:[]
     }
   }
@@ -27,27 +29,42 @@ class Course extends React.Component {
   onSelect = (selectedKeys, info) => {
     console.log('selected', selectedKeys, info.node.props);
     this.setState({
-      sectionTitle:info.node.props.title.props.children
-    })
-  }
-  // 添加一级目录
-  addChapter(){
-    axios.post(URL.saveChapter, {
-      title: this.state.chapterTitle
-    }).then(res => {
-      if (res.code == 0) {
-        message.success('保存成功！')
-        this.setState({
-          visibleChapter: false
-        })
-        this.getDirectory()
-      }
+      sectionTitle:info.node.props.title.props.children[0]
     })
   }
 
-  editChapter(){
-    
+  // 添加/修改一级目录
+  saveChapter(){
+    if(this.state.chaperId ==-1){
+      // 添加
+      axios.post(URL.addChapter, {
+        title: this.state.chapterTitle
+      }).then(res => {
+        if (res.code == 0) {
+          message.success('添加成功！')
+          this.setState({
+            visibleChapter: false
+          })
+          this.getDirectory()
+        }
+      })
+    } else{
+      // 修改
+      axios.post(URL.editChapter, {
+        id:this.state.chaperId,
+        title: this.state.chapterTitle
+      }).then(res => {
+        if (res.code == 0) {
+          message.success('保存成功！')
+          this.setState({
+            visibleChapter: false
+          })
+          this.getDirectory()
+        }
+      })
+    }
   }
+
 
   handleChapter(e){
     this.setState({
@@ -60,17 +77,24 @@ class Course extends React.Component {
       sectionTitle:e.target.value
     })
   }
-
-  deleteChapter(id,name){
-    console.log(id)
+  // 删除章节
+  deleteChapter(id,title){
+    const self  = this
     confirm({
-      title: `确认要删除此章节(${name})内容么?`,
+      title: `确认要删除此章节(${title})内容么?`,
       content:'删除后不可恢复',
       okText: '确认',
       okType: 'danger',
       cancelText: '取消',
       onOk() {
-        console.log('OK');
+        axios.post(URL.delChapter, {
+          id: id
+        }).then(res => {
+          if (res.code == 0) {
+            message.success('删除成功！')
+            self.getDirectory()
+          }
+        })
       },
       onCancel() {
         console.log('Cancel');
@@ -103,6 +127,13 @@ class Course extends React.Component {
     })
   }
 
+  isShowSectionFormModal(s,id){
+    this.setState({
+      visibleSectionForm: s,
+      sectionId:id
+    })
+  }
+
   addSection(){
     axios.post(URL.addSection, {
       parent_id: this.state.chaperId,
@@ -117,7 +148,22 @@ class Course extends React.Component {
       }
     })
   }
-  
+  saveSectionForm(){
+    axios.post(URL.saveSectionForm, {
+      tId: this.state.sectionId,
+      title: this.state.sectionTitle,
+
+    }).then(res => {
+      if (res.code == 0) {
+        message.success('保存成功！')
+        this.setState({
+          visibleSectionForm: false
+        })
+        this.getDirectory()
+      }
+    })
+  }
+
   getDirectory(){
     axios.get(URL.getDirectory).then(res => {
       console.log(res.data)
@@ -126,6 +172,7 @@ class Course extends React.Component {
       })
     })
   }
+
   componentDidMount() {
     this.getDirectory()
   }
@@ -164,6 +211,7 @@ class Course extends React.Component {
         <Tree
           showLine
           defaultExpandAll={true}
+          autoExpandParent={true}
           onSelect={this.onSelect}
         >
           <TreeNode 
@@ -176,12 +224,12 @@ class Course extends React.Component {
                   title={<span className="parent-container">{item.title} <span className="parent-operation">
                   <Icon type="plus-circle" className="icon" onClick={() => this.isShowSectionModal(true,item.id)}/>
                   <Icon type="edit" className="icon" onClick={() => this.isShowChapterModal(false, true, item.id, item.title)}/>
-                  <Icon type="delete" className="icon" onClick={() => this.deleteChapter(item.id,item.name)}/></span></span>} 
+                  <Icon type="delete" className="icon" onClick={() => this.deleteChapter(item.id, item.title)}/></span></span>} 
                   key={item.id}  selectable={false}
                 >
                   {item.children && item.children.map((item_)=>{
                       return(
-                        <TreeNode title={<span>{item_.title}</span>} key={item_.id} ></TreeNode>
+                        <TreeNode title={<span onClick={() => this.isShowSectionFormModal(true, item.id)}>{item_.title} <Icon type="edit" className="icon" /></span>} key={item_.id} ></TreeNode>
                       )
                     })
                   }
@@ -192,37 +240,43 @@ class Course extends React.Component {
         </Tree>
 
         {/* 小节详细信息 */}
-        <Form className="sectionForm" >
-          <Form.Item
-            {...formItemLayout}
-            label="标题"
-          > 
-            <Input value={this.state.sectionTitle} onChange={e => this.handleSection(e)}/>
-          </Form.Item>
-          <Form.Item
-            {...formItemLayout}
-            label="简介"
-          >
-            <Input.TextArea rows={6}/>
-          </Form.Item>
-          <Form.Item
-            {...formItemLayout}
-            label="视频链接"
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            {...formItemLayout}
-            label="课件资料"
-          >
-            <Upload {...uploadprops}>
-              <Button>
-                <Icon type="upload" /> Click to Upload
-              </Button>
-            </Upload>
-          </Form.Item>
-          <Button type="primary" htmlType="submit">保存</Button>
-        </Form>
+        <Modal 
+          visible={this.state.visibleSectionForm} 
+          okText='保存'
+          cancelText="取消"
+          onOk={() => this.saveSectionForm()}
+          onCancel={() => this.isShowSectionFormModal(false, -1)}>
+          <Form >
+            <Form.Item
+              {...formItemLayout}
+              label="标题"
+            > 
+              <Input value={this.state.sectionTitle} onChange={e => this.handleSection(e)}/>
+            </Form.Item>
+            <Form.Item
+              {...formItemLayout}
+              label="简介"
+            >
+              <Input.TextArea rows={6}/>
+            </Form.Item>
+            <Form.Item
+              {...formItemLayout}
+              label="视频链接"
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              {...formItemLayout}
+              label="课件资料"
+            >
+              <Upload {...uploadprops}>
+                <Button>
+                  <Icon type="upload" /> Click to Upload
+                </Button>
+              </Upload>
+            </Form.Item>
+          </Form>
+        </Modal>
 
         {/* 添加章节目录 */}
         <Modal
@@ -230,7 +284,7 @@ class Course extends React.Component {
           visible={this.state.visibleChapter}
           okText='确认'
           cancelText="取消"
-          onOk={() => this.addChapter()}
+          onOk={() => this.saveChapter()}
           onCancel={() => this.isShowChapterModal(false)}
         >
           <Input placeholder="输入名称" value={this.state.chapterTitle} onChange={e => this.handleChapter(e)}/>

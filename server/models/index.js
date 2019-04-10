@@ -89,13 +89,31 @@ exports.viewNotice=({...values})=>{
 // ===================== 课程目录 =======
 
 exports.getDirectory = () =>{
-    let _sql = `select * from dTree where id !=1`;
+    let _sql = `select * from dtree where id !=1`;
     return query(_sql)
 }
 
 exports.handleDirectory = ({...values}) =>{
     let { parent_id,title, type } = values;
-    let _sql = `insert into dTree (parent_id, title, type) value(${parent_id}, '${title}',${type}) `;
+    let _sql = `insert into dtree (parent_id, title, type) value(${parent_id}, '${title}',${type}) `;
+    return query(_sql)
+}
+
+exports.editDirectory=({...values})=>{
+    let {id, title} = values;
+    let _sql = `update dtree set title='${title}' where id ='${id}'`;
+    return query(_sql)
+}
+
+exports.delDirectory = ({...values})=>{
+    let {id} = values;
+    let _sql = `delete from dtree where id ='${id}' or parent_id = '${id}'`;
+    return query(_sql)
+}
+// 保存课件
+exports.saveCourseFile = ({...values}) => {
+    let _sql = ''
+    
     return query(_sql)
 }
 
