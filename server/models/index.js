@@ -87,7 +87,6 @@ exports.viewNotice=({...values})=>{
 
 
 // ===================== 课程目录 =======
-
 exports.getDirectory = () =>{
     let _sql = `select * from dtree where id !=1`;
     return query(_sql)

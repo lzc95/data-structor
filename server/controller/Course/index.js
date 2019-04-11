@@ -132,7 +132,9 @@ Course.addSection = async(ctx, next)=>{
 
 Course.saveSectionForm = async(ctx, next)=>{
     try{
-        let { tId, title } = ctx.request.body;
+        let { tId, title,description, video,fileList } = ctx.request.body;
+        let file = fileList.join(';');
+        
         let res = await model.saveSectionForm({ tId, title});
         if (res) {
             ctx.body = {

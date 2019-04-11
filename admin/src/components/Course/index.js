@@ -20,9 +20,13 @@ class Course extends React.Component {
       isAddChapter: true,
       chapterTitle:'',
       sectionTitle: '',
+      sectionVideo:'',
+      sectionDescription:'',
+      fileList:[],
       chaperId: -1,
       sectionId:-1,
-      dataTree:[]
+      dataTree:[],
+     
     }
   }
   
@@ -75,6 +79,17 @@ class Course extends React.Component {
   handleSection(e){
     this.setState({
       sectionTitle:e.target.value
+    })
+  }
+  handleSectionDescription(e){
+    this.setState({
+      sectionDescription:e.target.value
+    })
+  }
+
+  handleSectionVideo(e){
+    this.setState({
+      sectionVideo:e.target.value
     })
   }
   // 删除章节
@@ -152,6 +167,9 @@ class Course extends React.Component {
     axios.post(URL.saveSectionForm, {
       tId: this.state.sectionId,
       title: this.state.sectionTitle,
+      description: this.state.sectionDescription,
+      video: this.state.sectionVideo,
+      fileList: this.state.fileList
 
     }).then(res => {
       if (res.code == 0) {
@@ -178,6 +196,7 @@ class Course extends React.Component {
   }
   
   render() {
+    const self =this
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -197,6 +216,14 @@ class Course extends React.Component {
       onChange(info) {
         if (info.file.status !== 'uploading') {
           console.log(info.file);
+          let fileList = info.fileList.map(item=>{
+            return item.response.file_path
+          })
+
+          self.setState({
+            fileList
+          })
+
           if(info.file.status == 'removed'){
             axios.post(URL.deleteCourseFile, {
               file_path:info.file.response.file_path
@@ -266,13 +293,13 @@ class Course extends React.Component {
               {...formItemLayout}
               label="简介"
             >
-              <Input.TextArea rows={6}/>
+              <Input.TextArea rows={6} value={this.state.sectionDescription} onChange={e => this.handleSectionDescription(e)}/>
             </Form.Item>
             <Form.Item
               {...formItemLayout}
               label="视频链接"
             >
-              <Input />
+              <Input value={this.state.sectionVideo} onChange={e => this.handleSectionVideo(e)}/>
             </Form.Item>
             <Form.Item
               {...formItemLayout}
