@@ -152,20 +152,29 @@ Course.saveSectionForm = async(ctx, next)=>{
 
 // 上传课件资料
 Course.uploadCourseFile = async (ctx, next) =>{
-    console.log(ctx.request.files,'===================')
-    const oldPath=ctx.request.files.path;
-    const newPath=ctx.request.files.path+pathLib.parse(ctx.request.files.originalname).ext;
-    const newFileName=ctx.request.files.name+pathLib.parse(ctx.request.files.originalname).ext;
-    fs.rename(oldPath,newPath,(err)=>{
-        if(err){
-            console.error(err);  
-        } else {
-           
-        }
-    })
+    console.log(ctx.request.files.file.name,'===================')
+    let index = ctx.request.files.file.path.lastIndexOf('/')+1
     ctx.body={
         code:0,
+        file_path:ctx.request.files.file.path.slice(index),
+        file_name:ctx.request.files.file.name,
         msg:'success'
     }
 }
+// 删除资料
+Course.deleteCourseFile = async (ctx, next) =>{
+    let { file_path } = ctx.request.body;
+    let delpath = pathLib.join(__dirname, `../../public/upload/${file_path}`)
+    fs.unlink(delpath, function(err) {
+        if (err) {
+            return console.error(err);
+        }
+     });
+     ctx.body={
+        code:0,
+        msg:'success'
+    }
+   
+}
+
 module.exports = Course

@@ -196,7 +196,16 @@ class Course extends React.Component {
       },
       onChange(info) {
         if (info.file.status !== 'uploading') {
-          console.log(info.file, info.fileList);
+          console.log(info.file);
+          if(info.file.status == 'removed'){
+            axios.post(URL.deleteCourseFile, {
+              file_path:info.file.response.file_path
+            }).then(res=>{
+              if(res.code==0){
+                message.success('delete successfully')
+              }
+            })
+          }
         }
         if (info.file.status === 'done') {
           message.success(`${info.file.name} file uploaded successfully`);

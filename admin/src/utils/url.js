@@ -14,5 +14,6 @@ module.exports={
     delChapter: prefix +'/delChapter',
     addSection: prefix + '/addSection',
     saveSectionForm: prefix + '/saveSectionForm',
-    uploadCourseFile: prefix + '/uploadCourseFile'
+    uploadCourseFile: prefix + '/uploadCourseFile',
+    deleteCourseFile: prefix + '/deleteCourseFile'
 }

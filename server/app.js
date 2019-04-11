@@ -7,7 +7,7 @@ const bodyparser = require('koa-bodyparser')
 const session = require('koa-session')
 const logger = require('koa-logger')
 const koaBody = require('koa-body')
-
+const path = require('path')
 const route = require('./routes/index')
 
 // error handler
@@ -20,7 +20,10 @@ onerror(app)
 app.use(koaBody({
   multipart: true,
   formidable: {
-    maxFileSize: 200 * 1024 * 1024    // 设置上传文件大小最大限制，默认2M
+    uploadDir:path.join(__dirname,'/public/upload/'), // 设置文件上传目录
+    keepExtensions: true,    // 保持文件的后缀
+    maxFieldsSize:2 * 1024 * 1024, // 文件上传大小
+ 
   }
 }));
 
