@@ -80,36 +80,45 @@ Notice.viewNotice =  async(ctx, next)=>{
 
 Notice.publishNotice = async(ctx, next) =>{
     try{
-        // let {isSenndEmail} = ctx.request.body
+        let {isSenndEmail} = ctx.request.body
         let transporter = nodemailer.createTransport({
-            service: '163', // 使用了内置传输发送邮件 查看支持列表：https://nodemailer.com/smtp/well-known/
+            host: 'smtp.163.com',
+            port: 465,
+            secure: true,
             auth: {
-                user: '18792867055@163.com',
-                pass: 'luozc1995',
+            user: '18792867055@163.com', //邮箱的账号
+            pass: 'luozc1995'//邮箱的密码
             }
         });
-
         let mailOptions = {
             from: '"课程管理系统" <18792867055@163.com>', // sender address
             to: '1410647500@qq.com', // list of receivers
-            subject: '', 
-            html: '' // html body
+            subject: 'Hello ✔', // 邮件主题
+            text: 'Hello world ?', // 存文本类型的邮件正文
+            html: '<b>Hello world ?</b>' // html类型的邮件正文
         };
 
-        function sendMail(){
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+            return console.log(error);
+            }
+            console.log('Message %s sent: %s', info.messageId, info.response);
+        });
 
-            return Promise(resolve,reject)
-        }
         
-
         ctx.body = {
             code: 0,
             msg: 'ok'
         }
-        //console.log(a)
     }catch(err){
         console.log(err)
     }
 }
 
 module.exports = Notice;
+
+
+
+
+
+

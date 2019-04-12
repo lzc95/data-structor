@@ -13,6 +13,8 @@
 }
 .content-item{
     outline: none;
+    margin-bottom: 10px;
+    width: 50%;
 }
 .display{
     display: none

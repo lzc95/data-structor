@@ -91,9 +91,9 @@ class AddArticle extends React.Component {
         return (
             <div>
                 <Button onClick={() => this.back()} className="back">返回</Button>
-                <div>
+                <div style={{marginTop:'20px'}}>
                     标题：
-                    <input className="content-item" value={this.state.title} onChange={e => this.handleChange(e)} disabled={this.state.disabled} />
+                    <Input className="content-item" value={this.state.title} onChange={e => this.handleChange(e)} disabled={this.state.disabled} />
                 </div>
                 <div ref="editorElem" className="editor" />
                 <div className={btn}>

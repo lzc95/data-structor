@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Table, Divider, Icon, Pagination, message, Popconfirm, Modal, Radio } from 'antd';
+import { Button, Table, Divider, Icon, Pagination, message, Popconfirm, Modal, Radio,Input } from 'antd';
 import { withRouter } from 'react-router-dom'
 import axios from '@/utils/axios'
 import URL from '@/utils/url'
@@ -90,7 +90,8 @@ class Notice extends React.Component {
     publish(){
         axios.post(URL.publishNotice, {isSendEmail:this.state.isSendEmail}).then(res=>{
             if(res.code == 0){
-
+                this.isShowModal(false);
+                message.success('发布成功')
             }
         }, err=>{
 

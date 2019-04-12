@@ -133,12 +133,17 @@ Course.addSection = async(ctx, next)=>{
 Course.saveSectionForm = async(ctx, next)=>{
     try{
         let { tId, title,description, video,fileList,hasCourseInfo } = ctx.request.body;
-        let file =fileList.map(item=>{
-            return JSON.stringify(item)
-        })
-        file = file.join(';')
-        let res = await model.saveSectionForm({ tId, title, description,video,file,hasCourseInfo});
-        if (res) {
+        let file =''
+        if(fileList){
+            file = fileList.map(item=>{
+                return JSON.stringify(item)
+            })
+            file = file.join(';')
+        }
+       
+        let res = await model.saveSectionForm({ tId, description,video,file,hasCourseInfo});
+        let res_ = await model.editDirectory({id:tId,title});
+        if (res && res_) {
             ctx.body = {
                 code: 0,
                 msg: '保存成功'

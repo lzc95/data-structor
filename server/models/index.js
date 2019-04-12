@@ -114,7 +114,7 @@ exports.delDirectory = ({...values})=>{
 // 获取课程详细信息
 exports.getSignalCourseInfo =({...values})=>{
     let {tId} = values;
-    let _sql=`select * from section where tId = ${tId}`;
+    let _sql=`select section.*,dtree.title from section,dtree where section.tId = ${tId} and dtree.id = ${tId}`;
     return query(_sql)
 }
 

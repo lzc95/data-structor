@@ -159,6 +159,13 @@ class Course extends React.Component {
             sectionVideo:data.video,
             fileList:fileList
           })
+        } else {
+          this.setState({
+            hasCourseInfo:false,
+            sectionDescription:'',
+            sectionVideo:'',
+            fileList:[]
+          })
         } 
       })
     }
@@ -247,6 +254,7 @@ class Course extends React.Component {
             }).then(res=>{
               if(res.code==0){
                 message.success('delete successfully')
+                self.saveSectionForm()
               }
             })
           }
