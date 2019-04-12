@@ -26,7 +26,7 @@ class Course extends React.Component {
       chaperId: -1,
       sectionId:-1,
       dataTree:[],
-     
+      hasCourseInfo:false,
     }
   }
   
@@ -143,6 +143,26 @@ class Course extends React.Component {
   }
 
   isShowSectionFormModal(s,id){
+    if(s){
+      axios.post(URL.getSignalCourseInfo,{
+        tId:id
+      }).then(res=>{
+        let data = res.data[0]
+        let fileList =[]
+        if(data){
+          fileList = data.file && data.file.split(';').map(item=>{
+            return JSON.parse(item)
+          })
+          this.setState({
+            hasCourseInfo:!!data,
+            sectionDescription:data.description ,
+            sectionVideo:data.video,
+            fileList:fileList
+          })
+        } 
+      })
+    }
+
     this.setState({
       visibleSectionForm: s,
       sectionId:id
@@ -163,14 +183,15 @@ class Course extends React.Component {
       }
     })
   }
+
   saveSectionForm(){
     axios.post(URL.saveSectionForm, {
       tId: this.state.sectionId,
       title: this.state.sectionTitle,
       description: this.state.sectionDescription,
       video: this.state.sectionVideo,
-      fileList: this.state.fileList
-
+      fileList: this.state.fileList,
+      hasCourseInfo:this.state.hasCourseInfo
     }).then(res => {
       if (res.code == 0) {
         message.success('保存成功！')
@@ -209,21 +230,17 @@ class Course extends React.Component {
     };
     const uploadprops = {
       name: 'file',
+      multiple: true,
       action: URL.uploadCourseFile,
       headers: {
         authorization: 'authorization-text',
       },
       onChange(info) {
+        console.log(info.file);
+        self.setState({
+          fileList:info.fileList
+        })
         if (info.file.status !== 'uploading') {
-          console.log(info.file);
-          let fileList = info.fileList.map(item=>{
-            return item.response.file_path
-          })
-
-          self.setState({
-            fileList
-          })
-
           if(info.file.status == 'removed'){
             axios.post(URL.deleteCourseFile, {
               file_path:info.file.response.file_path
@@ -265,7 +282,7 @@ class Course extends React.Component {
                 >
                   {item.children && item.children.map((item_)=>{
                       return(
-                        <TreeNode title={<span onClick={() => this.isShowSectionFormModal(true, item.id)}>{item_.title} <Icon type="edit" className="icon" /></span>} key={item_.id} ></TreeNode>
+                        <TreeNode title={<span onClick={() => this.isShowSectionFormModal(true, item_.id)}>{item_.title} <Icon type="edit" className="icon" /></span>} key={item_.id} ></TreeNode>
                       )
                     })
                   }
@@ -305,7 +322,7 @@ class Course extends React.Component {
               {...formItemLayout}
               label="课件资料"
             >
-              <Upload {...uploadprops}>
+              <Upload {...uploadprops} fileList={this.state.fileList}>
                 <Button>
                   <Icon type="upload" /> Click to Upload
                 </Button>

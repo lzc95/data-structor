@@ -31,5 +31,6 @@ router.post('/addSection', Course.addSection)
 router.post('/saveSectionForm', Course.saveSectionForm)
 router.post('/uploadCourseFile', Course.uploadCourseFile)
 router.post('/deleteCourseFile', Course.deleteCourseFile)
+router.post('/getSignalCourseInfo', Course.getSignalCourseInfo)
 
 module.exports = router

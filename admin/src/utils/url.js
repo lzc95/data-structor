@@ -15,5 +15,6 @@ module.exports={
     addSection: prefix + '/addSection',
     saveSectionForm: prefix + '/saveSectionForm',
     uploadCourseFile: prefix + '/uploadCourseFile',
-    deleteCourseFile: prefix + '/deleteCourseFile'
+    deleteCourseFile: prefix + '/deleteCourseFile',
+    getSignalCourseInfo: prefix + '/getSignalCourseInfo'
 }

@@ -132,10 +132,12 @@ Course.addSection = async(ctx, next)=>{
 
 Course.saveSectionForm = async(ctx, next)=>{
     try{
-        let { tId, title,description, video,fileList } = ctx.request.body;
-        let file = fileList.join(';');
-        
-        let res = await model.saveSectionForm({ tId, title});
+        let { tId, title,description, video,fileList,hasCourseInfo } = ctx.request.body;
+        let file =fileList.map(item=>{
+            return JSON.stringify(item)
+        })
+        file = file.join(';')
+        let res = await model.saveSectionForm({ tId, title, description,video,file,hasCourseInfo});
         if (res) {
             ctx.body = {
                 code: 0,
@@ -151,10 +153,20 @@ Course.saveSectionForm = async(ctx, next)=>{
 
     }
 }
+// 获取课程信息
+Course.getSignalCourseInfo = async (ctx, next)=>{
+    let tId = ctx.request.body.tId
+    let res= await model.getSignalCourseInfo({tId})
+    if(res){
+        ctx.body={
+            code:0,
+            data:res
+        }
+    }
+}
 
 // 上传课件资料
 Course.uploadCourseFile = async (ctx, next) =>{
-    console.log(ctx.request.files.file.name,'===================')
     let index = ctx.request.files.file.path.lastIndexOf('/')+1
     ctx.body={
         code:0,
