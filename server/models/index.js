@@ -37,6 +37,7 @@ exports.getUser = (name, password) => {
     return query(_sql);
 }
 
+// ==========================公告 ================================
 // 获取列表总数
 exports.getNoticeTotal = ()=>{
     let _sql = `select count(*) as total from notice`;
@@ -85,8 +86,18 @@ exports.viewNotice=({...values})=>{
     return query(_sql)
 }
 
+// 发布公告
+exports.publishNotice = ({...values}) =>{
+    let _sql = `update notice set publish_time = ${values.publish_time} where id = ${values.id}`;
+    return query(_sql)
+}
+// 获取公告列表
+exports.getPublishNotice = () =>{
+    let _sql = `select id,title,create_time,publish_time from notice where publish_time != '0' order by publish_time desc`;
+    return query(_sql)
+}
 
-// ===================== 课程目录 =======
+// ===================== 课程目录 ======================
 exports.getDirectory = () =>{
     let _sql = `select * from dtree where id !=1`;
     return query(_sql)
@@ -110,7 +121,7 @@ exports.delDirectory = ({...values})=>{
     return query(_sql)
 }
 
-// =================小节课程信息==============
+// =============================小节课程信息========================
 // 获取课程详细信息
 exports.getSignalCourseInfo =({...values})=>{
     let {tId} = values;

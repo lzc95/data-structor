@@ -21,6 +21,7 @@ router.get('/getNoticeList', Notice.getList)
 router.post('/delNotice', Notice.delNotice)
 router.post('/viewNotice', Notice.viewNotice)
 router.post('/publishNotice', Notice.publishNotice)
+router.get('/getPublishNotice', Notice.getPublishNotice)
 
 router.get('/getDirectory', Course.getDirectory)
 router.post('/addChapter', Course.addChapter)

@@ -22,6 +22,7 @@ Notice.getList = async (ctx, next) => {
     }
 }
 
+
 Notice.save = async (ctx, next) => {
     try{
         let {title, content} = ctx.request.body;
@@ -80,41 +81,54 @@ Notice.viewNotice =  async(ctx, next)=>{
 
 Notice.publishNotice = async(ctx, next) =>{
     try{
-        let {isSenndEmail} = ctx.request.body
-        let transporter = nodemailer.createTransport({
-            host: 'smtp.163.com',
-            port: 465,
-            secure: true,
-            auth: {
-            user: '18792867055@163.com', //邮箱的账号
-            pass: 'luozc1995'//邮箱的密码
-            }
-        });
-        let mailOptions = {
-            from: '"课程管理系统" <18792867055@163.com>', // sender address
-            to: '1410647500@qq.com', // list of receivers
-            subject: 'Hello ✔', // 邮件主题
-            text: 'Hello world ?', // 存文本类型的邮件正文
-            html: '<b>Hello world ?</b>' // html类型的邮件正文
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-            return console.log(error);
-            }
-            console.log('Message %s sent: %s', info.messageId, info.response);
-        });
-
-        
-        ctx.body = {
-            code: 0,
-            msg: 'ok'
+        let {isSendEmail, id} = ctx.request.body
+        if(isSendEmail){
+            let transporter = nodemailer.createTransport({
+                host: 'smtp.163.com',
+                port: 465,
+                secure: true,
+                auth: {
+                user: '18792867055@163.com', //邮箱的账号
+                pass: 'luozc1995'//邮箱的密码
+                }
+            });
+            let mailOptions = {
+                from: '"课程管理系统" <18792867055@163.com>', // sender address
+                to: '1410647500@qq.com', // list of receivers
+                subject: 'Hello ✔', // 邮件主题
+                text: 'Hello world ?', // 存文本类型的邮件正文
+                html: '<b>Hello world ?</b>' // html类型的邮件正文
+            };
+    
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                return console.log(error);
+                }
+                console.log('Message %s sent: %s', info.messageId, info.response);
+            });
         }
+        let publish_time = Date.now()
+        let res = await model.publishNotice({id, publish_time})
+        if(res){
+            ctx.body = {
+                code: 0,
+                msg: 'ok'
+            }
+        } 
     }catch(err){
         console.log(err)
     }
 }
 
+Notice.getPublishNotice = async (ctx, next) =>{
+    let res = await model.getPublishNotice();
+    if(res){
+        ctx.body={
+            code: 0,
+            data: res
+        }
+    }
+}
 module.exports = Notice;
 
 

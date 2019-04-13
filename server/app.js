@@ -50,7 +50,7 @@ app.use(session(CONFIG, app));
 
 //跨域设置
 app.use(async (ctx, next) => {
-  ctx.set('Access-Control-Allow-Origin', 'http://localhost:8081');
+  ctx.set('Access-Control-Allow-Origin', 'http://localhost:8081','http://localhost:8082');
   ctx.set('Access-Control-Allow-Credentials', true);
   ctx.set('Access-Control-Allow-Headers', 'Content-Type,Authorization');
   ctx.set('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');

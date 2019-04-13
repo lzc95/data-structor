@@ -1,0 +1,5 @@
+<div><h2>css换肤</h2>
+<p>入行前端的时候经常看鱼哥(张鑫旭)的博客，记得看过 <a href="https://www.zhangxinxu.com/wordpress/2009/12/jquery-%e9%a9%ac%e5%8c%96%e8%85%be%e4%ba%a7%e5%93%81%e8%ae%be%e8%ae%a1%e4%b8%8e%e7%94%a8%e6%88%b7%e4%bd%93%e9%aa%8c%e7%9a%84%e4%b8%80%e4%ba%9b%e6%8a%80%e6%9c%af%e5%ae%9e%e7%8e%b0/" target="_blank" rel="nofollow">这篇</a> ，当时很惊叹，原理其实很简单，就是我们最能想到的方式，多个css，然后用JS替换从而达到换肤效果。但是这个有局限性，比如我们用的是antdUI库，我们不可能每个颜色都去搞个css吧。当时现在我们有less,sass，而且原生的css也有变量var了，所以新时代我们有新技术达到这个效果。</p>
+<h2>less换肤</h2>
+<p>其实antd官网是有 <a href="https://ant.design/docs/react/customize-theme-cn" target="_blank" rel="nofollow">定制主题</a> 的，但是是静态的，通过打包之前去设置一些config，less变量从而达到定制效果，但是这显然不是我们想要的==线上实时==换肤效果。</p>
+<p>最初我的思路是用node去实时生成一个webpack.config.base的配置文件，但是这样只能在开发环境实现换肤，生成环境是没办法的。然后网上有人说，用less去生成多个css文件，这不又走了以前的老路吗。最后没办法我把antdPro的源码拿来看了下，终于找到了解决办法，<a href="https://github.com/mzohaibqc/antd-theme-generator#readme" target="_blank" rel="nofollow">antd-theme-generator</a></p></div><br>

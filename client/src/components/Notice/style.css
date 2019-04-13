@@ -1,0 +1,42 @@
+.notice{
+  width: 80%;
+  margin-left: 50px;
+}
+.align{
+  text-align: center;
+}
+.time{
+  color: #169866;
+}
+.article{
+  margin-top:30px;
+}
+
+.allNoticeCircle{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background:#169866;
+  color: #fff;
+  padding-top: 8px;
+  text-align: center;
+  cursor: pointer;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+}
+.noticelist{
+  height: 350px;
+  overflow-y:scroll;
+  width: 200px;
+}
+.listTitle{
+  font-size: 15px;
+  cursor: pointer;
+}
+.listTitle:hover{
+  color: #169866;
+}
+.listTime{
+  font-size:8px;
+}

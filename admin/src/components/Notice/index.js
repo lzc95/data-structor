@@ -17,6 +17,7 @@ class Notice extends React.Component {
             loading: false,
             visible: false, 
             isSendEmail: false, // 发布时是否发送电子邮件
+            publishId:-1
         };
     }
 
@@ -88,7 +89,10 @@ class Notice extends React.Component {
     }
 
     publish(){
-        axios.post(URL.publishNotice, {isSendEmail:this.state.isSendEmail}).then(res=>{
+        axios.post(URL.publishNotice, {
+            isSendEmail:this.state.isSendEmail,
+            id:this.state.publishId
+        }).then(res=>{
             if(res.code == 0){
                 this.isShowModal(false);
                 message.success('发布成功')
@@ -98,10 +102,15 @@ class Notice extends React.Component {
         })
     }
     
-    isShowModal(s){
+    isShowModal(s,id){
         this.setState({
             visible: s,
         })
+        if(s){
+            this.setState({
+                publishId:id
+            })
+        }
     }
     componentDidMount() {
         let params = {
@@ -145,7 +154,7 @@ class Notice extends React.Component {
                         </a>
                     </Popconfirm>
                     <Divider type="vertical" />
-                    <a href="javascript:;" onClick={()=>this.isShowModal(true)}>
+                    <a href="javascript:;" onClick={()=>this.isShowModal(true, record.id)}>
                         <Icon type="pushpin" />
                         发布
                     </a>
