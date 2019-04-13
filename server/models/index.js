@@ -100,13 +100,13 @@ exports.handleDirectory = ({...values}) =>{
 
 exports.editDirectory=({...values})=>{
     let {id, title} = values;
-    let _sql = `update dtree set title='${title}' where id ='${id}'`;
+    let _sql = `update dtree set title='${title}' where id =${id}`;
     return query(_sql)
 }
 
 exports.delDirectory = ({...values})=>{
     let {id} = values;
-    let _sql = `delete from dtree where id ='${id}' or parent_id = '${id}'`;
+    let _sql = `delete from dtree where id =${id} or parent_id = ${id}`;
     return query(_sql)
 }
 
@@ -120,12 +120,12 @@ exports.getSignalCourseInfo =({...values})=>{
 
 // 保存课程信息
 exports.saveSectionForm = ({...values}) => {
-    let {tId,title,description,video,file,hasCourseInfo} = values;
+    let {tId,description,video,file,hasCourseInfo} = values;
     let _sql= ''
     if(hasCourseInfo){
         _sql = `update section set description='${description}', video='${video}',file='${file}'  where tId=${tId}`;
     } else{
-        _sql = `insert into section (tId,title,description,video,file) value(${tId},'${title}','${description}','${video}','${file}')`
+        _sql = `insert into section (tId,description,video,file) value(${tId},'${description}','${video}','${file}')`
     }
    
     return query(_sql)
