@@ -28,7 +28,7 @@ class App extends React.Component{
   }
 
   logout = () => {
-    axios.get('/api/logout').then(res=>{
+    axios.post('/api/logout',{type:0}).then(res=>{
       if(res.code == 0){
         this.props.logout({ status: false })
         window.location.reload()
@@ -39,14 +39,14 @@ class App extends React.Component{
   }
   
   componentDidMount () {
-    axios.get('/api/check').then(res => {
+    axios.post('/api/check',{type:0}).then(res => {
       this.setState({
         loading:false
       })
       if (res.code == 0){
         this.props.checkAuth({status:true})
         this.setState({
-          username:Cookies.get('username')
+          username:Cookies.get('studentName')
         })
       }
     }).catch(err => {

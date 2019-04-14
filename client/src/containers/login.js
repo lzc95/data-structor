@@ -25,6 +25,19 @@ const mapDispatchToProps = (dispatch) => {
       }).catch(err => {
         console.log(err)
       })
+    },
+    handleRegister: (user) =>{
+      axios.post('/api/studentRegister', user).then(res => {
+        console.log(res)
+        if (res.code == 0) {
+          window.location.reload()
+          dispatch(setCurrentUser({status:true}))
+        } else {
+          message.error(res.msg);
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 }

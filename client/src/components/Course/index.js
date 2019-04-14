@@ -17,6 +17,7 @@ class Course extends React.Component {
       isStudy:false,
       studyCourseId:-1,
       parentId:-1,
+      activeTab: 1
     }
   }
   
@@ -34,12 +35,17 @@ class Course extends React.Component {
     })
   }
   
-  goCourseInfo(pId,id){
+  goCourseInfo(pId,id,tab){
     this.setState({
       parentId:pId,
       studyCourseId:id,
       isStudy:true
     })
+    if(tab){
+      this.setState({
+        activeTab:tab
+      })
+    }
   }
 
   componentDidMount(){
@@ -78,9 +84,15 @@ class Course extends React.Component {
                           title={<p>
                               <span className="sectionTitle" onClick={()=>this.goCourseInfo(d.id, item.id)}>{item.title}</span>
                               <span className="operation"> 
-                                <Icon type="video-camera" style={{ color: '#169866' }} className='icon'/>
-                                <Icon type="file" style={{ color: '#169866' }} className='icon'/>
-                                <Icon type="message" style={{ color: '#169866' }} className='icon'/>
+                                <Icon type="video-camera"  className='icon'
+                                onClick={()=>this.goCourseInfo(d.id, item.id,1)}
+                                />
+                                <Icon type="file"  className='icon'
+                                onClick={()=>this.goCourseInfo(d.id, item.id,2)}
+                                />
+                                <Icon type="message"  className='icon'
+                                onClick={()=>this.goCourseInfo(d.id, item.id,3)} 
+                                />
                               </span>
                             
                           </p>}
@@ -100,6 +112,7 @@ class Course extends React.Component {
           changeStudyStatus={(v)=>this.changeStudyStatus(v)} 
           studyCourseId={this.state.studyCourseId}
           parentId={this.state.parentId}
+          activeTab={this.state.activeTab}
           />
         }
       </div>

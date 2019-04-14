@@ -5,16 +5,19 @@ const Course = require('../controller/Course')
 
 router.use(async (ctx, next)=>{
    console.log(ctx.request.url)
-   if ((ctx.request.url != '/login' && ctx.request.url != '/check') && !ctx.session.username) {
+   if ((ctx.request.url != '/login' && ctx.request.url != '/check' && ctx.request.url != '/studentRegister') 
+   && 
+   (!ctx.session.teacherName && !ctx.session.studentName)) {
       ctx.status = 401
    } else {
       await next()
    }
 })
 
-router.get('/check', Auth.check)
-router.post('/login', Auth.login);
-router.get('/logout', Auth.logout)
+router.post('/check', Auth.check)
+router.post('/login', Auth.login)
+router.post('/logout', Auth.logout)
+router.post('/studentRegister',Auth.studentRegister)
 
 router.post('/saveNotice', Notice.save)
 router.get('/getNoticeList', Notice.getList)

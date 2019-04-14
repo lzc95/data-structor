@@ -31,11 +31,25 @@ const query = (sql, values) => {
     })
 }
 
+// ===============================登录&注册==================================
 // 查找用户
 exports.getUser = (name, password) => {
     let _sql = `select * from user where user.username="${name}" and user.password="${password}";`;
     return query(_sql);
 }
+
+// 检查学生是否已经注册
+exports.checkUser = (name) => {
+    let _sql =`select * from user where user.username = '${name}'`;
+    return query(_sql);
+}
+
+exports.studentRegister =(username, email,password,type) =>{
+    let _sql =`insert into user (username,email,password,type) values('${username}','${email}','${password}',${type})`;
+    return query(_sql);
+}
+
+
 
 // ==========================公告 ================================
 // 获取列表总数

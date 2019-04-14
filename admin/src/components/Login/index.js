@@ -14,7 +14,7 @@ class Login  extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
-        this.props.handleLogin(values)
+        this.props.handleLogin(Object.assign(values,{type:1}))
       }
     })
   }

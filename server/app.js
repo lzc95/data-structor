@@ -40,17 +40,18 @@ app.use(views(__dirname + '/views', {
 app.keys = ['luozc@FE'];
 const CONFIG = {
   key: 'koa:session',   //cookie key 
+  renew: false,
   maxAge: 24 * 60 * 60 * 1000, // cookie的过期时间 
-  overwrite: true,  //是否可以overwrite    
+  overwrite: false,  //是否可以overwrite    
   httpOnly: true, //cookie是否只有服务器端可以访问 httpOnly or not (default true)
-  signed: true,   //签名默认true
-  rolling: true,  //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
+  // signed: true,   //签名默认true
+  // rolling: true,  //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
 };
 app.use(session(CONFIG, app));
 
 //跨域设置
 app.use(async (ctx, next) => {
-  ctx.set('Access-Control-Allow-Origin', 'http://localhost:8081','http://localhost:8082');
+  ctx.set('Access-Control-Allow-Origin', '*');
   ctx.set('Access-Control-Allow-Credentials', true);
   ctx.set('Access-Control-Allow-Headers', 'Content-Type,Authorization');
   ctx.set('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
