@@ -8,8 +8,20 @@ let nav = [
   {
     id: 'course',
     title: '课件',
-    icon: 'file',
+    icon: 'book',
     path: '/course'
+  },
+  {
+    id: 'task',
+    title: '测验与作业',
+    icon: 'snippets',
+    path: '/task'
+  },
+  {
+    id: 'person',
+    title: '个人中心',
+    icon: 'user',
+    path: '/person'
   },
 ];
 

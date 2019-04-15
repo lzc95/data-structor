@@ -2,6 +2,7 @@ const router = require('koa-router')()
 const Auth = require('../controller/Auth')
 const Notice = require('../controller/Notice')
 const Course = require('../controller/Course')
+const Student = require('../controller/Student')
 
 router.use(async (ctx, next)=>{
    console.log(ctx.request.url)
@@ -36,5 +37,10 @@ router.post('/saveSectionForm', Course.saveSectionForm)
 router.post('/uploadCourseFile', Course.uploadCourseFile)
 router.post('/deleteCourseFile', Course.deleteCourseFile)
 router.post('/getSignalCourseInfo', Course.getSignalCourseInfo)
+
+router.get('/getStudent', Student.getStudent)
+router.post('/getStudentInfo',Student.getStudentInfo)
+router.post('/handlePersonInfo',Student.handlePersonInfo)
+router.post('/modifyPass',Student.modifyPass)
 
 module.exports = router

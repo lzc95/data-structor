@@ -177,7 +177,7 @@ class Study extends React.Component{
                         }
                     </TabPane>
                     <TabPane tab={<Icon type="message" className="tab"/>} key="3">
-                        Content of Tab Pane 3
+                        留言区
                     </TabPane>
                 </Tabs>
             </div>

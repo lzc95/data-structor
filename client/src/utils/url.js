@@ -6,13 +6,10 @@ module.exports={
     getSingalNotice: prefix + '/viewNotice',
     // 课程目录
     getDirectory: prefix + '/getDirectory',
+    getSignalCourseInfo: prefix + '/getSignalCourseInfo',
 
-    addChapter: prefix +'/addChapter',
-    editChapter: prefix +'/editChapter',
-    delChapter: prefix +'/delChapter',
-    addSection: prefix + '/addSection',
-    saveSectionForm: prefix + '/saveSectionForm',
-    uploadCourseFile: prefix + '/uploadCourseFile',
-    deleteCourseFile: prefix + '/deleteCourseFile',
-    getSignalCourseInfo: prefix + '/getSignalCourseInfo'
+    // 个人
+    getStudentInfo: prefix + '/getStudentInfo',
+    handlePersonInfo: prefix +'/handlePersonInfo',
+    modifyPass: prefix + '/modifyPass'
 }

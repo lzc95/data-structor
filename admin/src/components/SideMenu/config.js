@@ -6,10 +6,10 @@ let nav = [
     path: '/course'
   },
   {
-    id: 'category',
-    title: '分类管理',
-    icon: 'appstore',
-    path: '/category'
+    id: 'student',
+    title: '学生管理',
+    icon: 'user',
+    path: '/student'
   },
   {
     id: 'notice',
@@ -18,10 +18,10 @@ let nav = [
     path: '/notice'
   },
   {
-    id: 'tags',
-    title: '标签管理',
+    id: 'task',
+    title: '测验管理',
     icon: 'tags',
-    path: '/tags'
+    path: '/task'
   },
   {
     id: 'charts',

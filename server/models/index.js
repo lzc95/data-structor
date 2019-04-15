@@ -111,7 +111,7 @@ exports.getPublishNotice = () =>{
     return query(_sql)
 }
 
-// ===================== 课程目录 ======================
+// ===================================课程目录 ======================================
 exports.getDirectory = () =>{
     let _sql = `select * from dtree where id !=1`;
     return query(_sql)
@@ -153,6 +153,28 @@ exports.saveSectionForm = ({...values}) => {
         _sql = `insert into section (tId,description,video,file) value(${tId},'${description}','${video}','${file}')`
     }
    
+    return query(_sql)
+}
+
+
+// ====================================学生===============================
+exports.getStudent = () =>{
+    let _sql = `select id,username,email,nickname from user where type = 0 `
+    return query(_sql)
+}
+exports.getStudentInfo = ({...values}) =>{
+    let _sql = `select username,email,nickname from user where type = 0  and username ='${values.username}' `;
+    return query(_sql)
+}
+// 修改个人资料
+exports.handlePersonInfo = ({...values})=>{
+    let _sql = `update user set email = '${values.email}', nickname = '${values.nickname}'
+    where username = '${values.username}'`;
+    return query(_sql)
+}
+
+exports.modifyPass = ({...values}) => {
+    let _sql = `update user set password = '${values.newpassword}' where username = '${values.username}'`;
     return query(_sql)
 }
 

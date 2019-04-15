@@ -21,14 +21,14 @@ Auth.login = async function(ctx, next){
                     // 教师
                     ctx.session.teacherName = username;
                     ctx.cookies.set('teacherName', username, { 
-                        maxAge: 60 * 60 * 1000, 
+                        maxAge: 24 * 60 * 60 * 1000,
                         httpOnly: false
                     });
                 } else {
                     // 学生
                     ctx.session.studentName = username;
                     ctx.cookies.set('studentName', username, { 
-                        maxAge: 60 * 60 * 1000, 
+                        maxAge: 24 * 60 * 60 * 1000,
                         httpOnly: false
                     });
                 }  

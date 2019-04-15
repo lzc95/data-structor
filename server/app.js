@@ -22,7 +22,7 @@ app.use(koaBody({
   formidable: {
     uploadDir:path.join(__dirname,'/public/upload/'), // 设置文件上传目录
     keepExtensions: true,    // 保持文件的后缀
-    maxFieldsSize:2 * 1024 * 1024, // 文件上传大小
+    maxFieldsSize:20 * 1024 * 1024, // 文件上传大小
  
   }
 }));
@@ -44,8 +44,8 @@ const CONFIG = {
   maxAge: 24 * 60 * 60 * 1000, // cookie的过期时间 
   overwrite: false,  //是否可以overwrite    
   httpOnly: true, //cookie是否只有服务器端可以访问 httpOnly or not (default true)
-  // signed: true,   //签名默认true
-  // rolling: true,  //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
+  signed: true,   //签名默认true
+  rolling: true,  //在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
 };
 app.use(session(CONFIG, app));
 

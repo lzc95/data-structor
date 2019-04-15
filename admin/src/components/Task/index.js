@@ -1,15 +1,15 @@
 import React from 'react'
-class Tags extends React.Component{
+class Task extends React.Component{
   constructor (props) {
     super (props)
   }
   render () {
     return(
       <div>
-        tags
+        Task
       </div>
     )
   }
  }
 
- export default Tags
+ export default Task

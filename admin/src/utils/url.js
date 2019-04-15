@@ -16,5 +16,8 @@ module.exports={
     saveSectionForm: prefix + '/saveSectionForm',
     uploadCourseFile: prefix + '/uploadCourseFile',
     deleteCourseFile: prefix + '/deleteCourseFile',
-    getSignalCourseInfo: prefix + '/getSignalCourseInfo'
+    getSignalCourseInfo: prefix + '/getSignalCourseInfo',
+
+    // 学生
+    getStudent: prefix + '/getStudent'
 }
