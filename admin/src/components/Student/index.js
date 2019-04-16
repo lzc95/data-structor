@@ -64,7 +64,7 @@ class Student extends React.Component{
         <Table 
             dataSource={this.state.data} 
             columns={columns} 
-            
+            pagination={false}
         />
       </div>
     )

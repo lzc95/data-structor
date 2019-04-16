@@ -95,9 +95,17 @@ class Study extends React.Component{
             let data = res.data[0]
             if(data){
                 this.setState({
-                    video:data.video,
-                    file:JSON.parse(data.file).response.file_path
+                    video:data.video,    
                 })
+                if(data.file){
+                    this.setState({
+                        file:JSON.parse(data.file).response.file_path
+                    })
+                } else{
+                    this.setState({
+                        file:''
+                    })
+                }
             } else{
                 this.setState({
                     video:'',

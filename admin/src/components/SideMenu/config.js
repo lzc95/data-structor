@@ -21,7 +21,19 @@ let nav = [
     id: 'task',
     title: '测验管理',
     icon: 'tags',
-    path: '/task'
+    children:[
+      {
+        id: 'taskAll',
+        title: '全部测验',
+        icon: 'mail',
+        path: '/taskAll',
+      },
+      {
+        id: 'taskAdd',
+        title: '添加测验',
+        path: '/taskAdd',
+      }
+    ]
   },
   {
     id: 'charts',

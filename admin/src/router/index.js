@@ -4,6 +4,7 @@ import {Route,Switch,Redirect} from 'react-router-dom'
 import Course from '@/components/Course'
 import Student from '@/components/Student'
 import Task from '@/components/Task'
+import AddTask from '@/components/AddTask'
 import Charts from '@/components/Charts'
 import Notice from '@/components/Notice'
 import AddNotice from '@/components/Notice/add'
@@ -16,7 +17,8 @@ class Routes extends React.Component{
         <Route exact path="/" render={() => <Redirect to="/course" />} />
         <Route path="/course" component={Course} />
         <Route path="/student" component={Student} />
-        <Route path="/task" component={Task} />
+        <Route path="/taskAll" component={Task} />
+        <Route path="/taskAdd" component={AddTask} />
         <Route path="/notice" component={Notice} />
         <Route path="/addnotice" component={AddNotice} />
         <Route path="/viewnotice" component={AddNotice} />

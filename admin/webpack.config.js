@@ -66,18 +66,18 @@ module.exports = {
         filename: "css/style.css",
         chunkFilename: "[id].css"
       }),
-      new BundleAnalyzerPlugin({
-        analyzerMode: 'server',
-        analyzerHost: '127.0.0.1',
-        analyzerPort: 8889,
-        reportFilename: 'report.html',
-        defaultSizes: 'parsed',
-        openAnalyzer: true,
-        generateStatsFile: false,
-        statsFilename: 'stats.json',
-        statsOptions: null,
-        logLevel: 'info'
-      })
+      // new BundleAnalyzerPlugin({
+      //   analyzerMode: 'server',
+      //   analyzerHost: '127.0.0.1',
+      //   analyzerPort: 8889,
+      //   reportFilename: 'report.html',
+      //   defaultSizes: 'parsed',
+      //   openAnalyzer: true,
+      //   generateStatsFile: false,
+      //   statsFilename: 'stats.json',
+      //   statsOptions: null,
+      //   logLevel: 'info'
+      // })
     ],
     devServer: {
       contentBase: path.join(__dirname, './dist'),  //服务器读取文件目录
