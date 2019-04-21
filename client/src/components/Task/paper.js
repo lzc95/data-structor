@@ -53,8 +53,7 @@ class Paper extends React.Component{
                 message.success('提交成功')
                 setTimeout(()=>{
                     window.location.reload()
-                },500)
-               
+                },500)   
             }
         })
     }
@@ -97,7 +96,9 @@ class Paper extends React.Component{
           };
         return(<div>
            <Button onClick={()=>this.gokPaperList()}><Icon type="rollback"/>返回</Button>
-           <h1 style={{textAlign:'center'}}>{this.props.title}</h1>
+           <h1 style={{textAlign:'center'}}>{this.props.title} 
+             {this.state.status =='view' && <span className='score'>正确率：{this.state.currentRecord.score * 100}%</span>}
+           </h1>
             {
                 this.state.paperInfo.map((item,index)=>{
                     return(
