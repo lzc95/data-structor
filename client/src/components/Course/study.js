@@ -1,13 +1,16 @@
 import React from 'react';
-import { Tabs,Icon,Select } from 'antd';
+import { Tabs,Icon,Select,Input,Button,List,message,Avatar } from 'antd';
 import NoData from './nodata'
+import Cookies from 'js-cookie'
 
 import URL from '@/utils/url'
 import axios from '@/utils/axios'
+import formateTime from '@/utils/formateTime'
 
 import './style.less'
 const TabPane = Tabs.TabPane;
 const Option = Select.Option;
+const { TextArea } = Input;
 
 const fileUrl = URL.REQUEST_URL + 'upload/'
 
@@ -22,7 +25,9 @@ class Study extends React.Component{
             secondData:[],
             secondSelectedData: [],
             video:'',
-            file:''
+            file:'',
+            messageData:[],
+            mContent:''
 
         }
     }
@@ -86,6 +91,7 @@ class Study extends React.Component{
             secondSelected:v
         })
         this.getCourseInfo(v)
+        this.getMessage(v)
     }
 
     getCourseInfo(id){
@@ -133,10 +139,54 @@ class Study extends React.Component{
        })
     } 
 
+
+    // 获取留言
+    getMessage(id){
+        axios.get(URL.getMessage,{
+            params:{
+                tId:id
+            }
+        }).then(res=>{
+            if(res.code == 0){
+                this.setState({
+                    messageData:res.data
+                })
+            }
+        })
+    }
+
+    // 发表留言
+    addMessage(){
+        if(this.state.mContent.trim()!==''){
+            axios.post(URL.addMessage,{
+                username:Cookies.get('studentName'),
+                cId:this.props.studyCourseId,
+                content:this.state.mContent
+            }).then(res=>{
+                if(res.code == 0){
+                    message.success('发表成功')
+                    this.setState({
+                        mContent:''
+                    })
+                }
+            })
+        } else{
+            message.warning('留言不能为空')
+        }
+        
+    }
+
+    handleMessage(e){
+        this.setState({
+            mContent:e.target.value
+        })
+    }
+
     componentDidMount(){
         this.getDirectory()
         this.getCourseInfo(this.props.studyCourseId)
         this.sectionSelected(this.props.parentId)
+        this.getMessage(this.props.studyCourseId)
 
         this.setState({
             firstSelected: this.props.parentId,
@@ -185,7 +235,24 @@ class Study extends React.Component{
                         }
                     </TabPane>
                     <TabPane tab={<Icon type="message" className="tab"/>} key="3">
-                        留言区
+                        <List
+                            itemLayout="horizontal"
+                            dataSource={this.state.messageData}
+                            renderItem={item => (
+                            <List.Item>
+                                <List.Item.Meta
+                                avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                                title={<span>{item.mContent}</span>}
+                                description={<span>{formateTime(item.mTime)}
+                                <span style={{marginLeft:30}}>发表人：{item.mCreator}</span></span>}
+                                />
+                            </List.Item>
+                            )}
+                        />
+                        <p style={{marginTop:30}}>发表留言：</p>
+                        <TextArea rows={4} onChange={(e)=>this.handleMessage(e)}/>
+                        <Button type="primary"  style={{marginTop:10}}
+                        onClick={()=>this.addMessage()}>发表</Button>
                     </TabPane>
                 </Tabs>
             </div>

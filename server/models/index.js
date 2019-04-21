@@ -209,3 +209,15 @@ exports.delPaper = ({...values})=>{
     let _sql =`delete from paper where id = ${values.id}`;
     return query(_sql);
 }
+
+// =======================================留言===========================
+exports.getMessage = ({...values}) => {
+    let _sql = `select * from message where tId = ${values.tId}`;
+    return query(_sql)
+}
+
+exports.addMessage = ({...values}) => {
+    let _sql = `insert into message (tId,mTime,mCreator,mContent) 
+    values(${values.cId},'${values.mTime}','${values.username}','${values.content}')`;
+    return query(_sql);
+}

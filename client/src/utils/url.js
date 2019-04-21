@@ -16,5 +16,11 @@ module.exports={
 
     // 测试
     getAllPaper: prefix + '/getAllPaper',
-    getPaperInfo: prefix + '/getPaperInfo'
+    getPaperInfo: prefix + '/getPaperInfo',
+
+    // 留言
+    getMessage: prefix + '/getMessage',
+    addMessage: prefix + '/addMessage',
+
+
 }
