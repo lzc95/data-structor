@@ -41,7 +41,6 @@ Student.modifyPass = async (ctx,next) =>{
     password = MD5(password)
     newpassword = MD5(newpassword)
     let res = await  model.getUser({username,password})
-    
     if(res){
         let res_ = await model.modifyPass({username,newpassword})
         if(res_){
@@ -51,8 +50,17 @@ Student.modifyPass = async (ctx,next) =>{
             }
         }
     }
+}
 
-
+Student.delStudent = async (ctx,next) =>{
+    let {id} = ctx.request.query;
+    let res = await model.delStudent({id})
+    if(res){
+        ctx.body={
+            code:0,
+            msg:'ok'
+        }
+    }
 }
 
 module.exports = Student;

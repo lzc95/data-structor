@@ -135,6 +135,11 @@ exports.delDirectory = ({...values})=>{
     return query(_sql)
 }
 
+exports.getChapter = () =>{
+    let _sql =`select id,title from dtree where type=1 `
+    return query(_sql)
+}
+
 // =============================小节课程信息========================
 // 获取课程详细信息
 exports.getSignalCourseInfo =({...values})=>{
@@ -166,6 +171,11 @@ exports.getStudentInfo = ({...values}) =>{
     let _sql = `select username,email,nickname from user where type = 0  and username ='${values.username}' `;
     return query(_sql)
 }
+
+exports.delStudent = ({...values}) =>{
+    let _sql = `delete from user where id = ${values.id}`;
+    return query(_sql)
+}
 // 修改个人资料
 exports.handlePersonInfo = ({...values})=>{
     let _sql = `update user set email = '${values.email}', nickname = '${values.nickname}'
@@ -178,3 +188,24 @@ exports.modifyPass = ({...values}) => {
     return query(_sql)
 }
 
+// ======================================测试题======================================
+
+exports.addPaper = ({...values}) =>{
+    let _sql = `insert into paper (tId,paper_title,paper_content)values(${values.tId},'${values.title}','${values.data}')`;
+    return query(_sql)
+}
+
+exports.getAllPaper = () => {
+    let _sql = `select dtree.title,paper.* from dtree,paper where dtree.id = paper.tId`;
+    return query(_sql);
+}
+
+exports.getPaperInfo = ({...values})=>{
+    let _sql =`select * from paper where id = ${values.id}`;
+    return query(_sql);
+}
+
+exports.delPaper = ({...values})=>{
+    let _sql =`delete from paper where id = ${values.id}`;
+    return query(_sql);
+}

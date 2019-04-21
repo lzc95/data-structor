@@ -11,5 +11,10 @@ module.exports={
     // 个人
     getStudentInfo: prefix + '/getStudentInfo',
     handlePersonInfo: prefix +'/handlePersonInfo',
-    modifyPass: prefix + '/modifyPass'
+    modifyPass: prefix + '/modifyPass',
+
+
+    // 测试
+    getAllPaper: prefix + '/getAllPaper',
+    getPaperInfo: prefix + '/getPaperInfo'
 }

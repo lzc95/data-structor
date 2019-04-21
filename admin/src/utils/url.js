@@ -17,7 +17,20 @@ module.exports={
     uploadCourseFile: prefix + '/uploadCourseFile',
     deleteCourseFile: prefix + '/deleteCourseFile',
     getSignalCourseInfo: prefix + '/getSignalCourseInfo',
+    getChapter:prefix + '/getChapter',
 
     // 学生
-    getStudent: prefix + '/getStudent'
+    getStudent: prefix + '/getStudent',
+    delStudent: prefix +'/delStudent',
+
+
+    // 测试题
+    addPaper: prefix + '/addPaper',
+    getAllPaper: prefix + '/getAllPaper',
+    delPaper: prefix + '/delPaper',
+    getPaperInfo: prefix + '/getPaperInfo',
+
+
+    // 密码
+    modifyPass: prefix +'/modifyPass',
 }

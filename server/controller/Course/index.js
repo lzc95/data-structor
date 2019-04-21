@@ -196,4 +196,15 @@ Course.deleteCourseFile = async (ctx, next) =>{
    
 }
 
+// 获取章
+Course.getChapter = async (ctx, next) =>{
+    let d = await model.getChapter()
+    if(d){
+        ctx.body={
+            code:0,
+            data:d
+        }
+    }
+}
+
 module.exports = Course

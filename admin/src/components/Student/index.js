@@ -1,7 +1,9 @@
 import React from 'react'
-import {Table,Popconfirm, Icon,} from 'antd'
+import {Table,message, Icon,Modal} from 'antd'
 import axios from '@/utils/axios'
 import URL from '@/utils/url'
+
+const confirm = Modal.confirm;
 
 class Student extends React.Component{
   constructor (props) {
@@ -11,19 +13,44 @@ class Student extends React.Component{
     }
   }
 
-  del(){
+  del(id,name){
+    const self = this;
+    confirm({
+      title: `确认要删除此学生(${name})信息?`,
+      content:'删除后不可恢复',
+      okText: '确认',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        axios.get(URL.delStudent,{
+          params:{
+            id:id
+          }
+        }).then(res=>{
+          if(res.code == 0){
+              message.success('删除成功')
+              self.getStudent()
+          }
+        })
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
 
+  getStudent(){
+      axios.get(URL.getStudent).then(res=>{
+        if(res.data){
+            this.setState({
+              data:res.data
+            })
+        }
+      })
   }
 
   componentDidMount(){
-    axios.get(URL.getStudent).then(res=>{
-        if(res.data){
-          this.setState({
-            data:res.data
-          })
-        }
-      }
-    )
+      this.getStudent()
   }
 
   render () {
@@ -49,13 +76,10 @@ class Student extends React.Component{
           key: 'action',
           width: 360,
           render: (text, record) => (
-              <span>
-                  <Popconfirm title="确认要删除么?" onConfirm={() => this.del()}>
-                  <a href="javascript:;">
+                  <span style={{cursor:'pointer',color:'#1779FE'}}
+                  onClick={()=>this.del(record.id, record.username)}>
                       <Icon type="delete" />删除
-                  </a>
-              </Popconfirm>
-              </span>
+                  </span>
           )
       }
   ];
