@@ -96,7 +96,7 @@ class Login  extends React.Component {
             </FormItem>
             <FormItem>
               <Button type="primary" htmlType="submit" className="login-form-button">
-                注册并登录
+                注册
               </Button>
               <p  className="changeStatusBtn" onClick={()=>{this.changeStatus(true)}}>去登录</p>
             </FormItem>

@@ -102,6 +102,17 @@ Paper.getStudentTestRecord = async (ctx, next) =>{
         }
     }
 }
+
+Paper.getAllPaperName = async (ctx, next) =>{
+    let res = await model.getAllPaperName()
+    if(res){
+        ctx.body={
+            code:0,
+            data:res
+        }
+    }
+}
+
 module.exports = Paper;
 
 

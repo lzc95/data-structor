@@ -5,7 +5,7 @@ import Course from '@/components/Course'
 import Student from '@/components/Student'
 import Task from '@/components/Task'
 import AddTask from '@/components/AddTask'
-import Charts from '@/components/Charts'
+import Score from '@/components/Score'
 import Notice from '@/components/Notice'
 import AddNotice from '@/components/Notice/add'
 import Account from '@/components/Account'
@@ -22,7 +22,7 @@ class Routes extends React.Component{
         <Route path="/notice" component={Notice} />
         <Route path="/addnotice" component={AddNotice} />
         <Route path="/viewnotice" component={AddNotice} />
-        <Route path="/charts" component={Charts} />
+        <Route path="/paperscore" component={Score} />
         <Route path="/account" component={Account} />
         <Route component={NotFound} />
       </Switch>;

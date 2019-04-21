@@ -231,3 +231,15 @@ exports.addMessage = ({...values}) => {
     values(${values.cId},'${values.mTime}','${values.username}','${values.content}')`;
     return query(_sql);
 }
+
+
+//====================成绩分析====================
+exports.getAllPaperName = () => {
+    let _sql = `select id,paper_title from paper `;
+    return query(_sql);
+}
+exports.getScore = ({...values}) => {
+    let _sql = `select test_record.id,test_record.uName,test_record.score,user.nickname
+    from test_record,user where pId = ${values.pId} and user.username = test_record.uName `;
+    return query(_sql);
+}

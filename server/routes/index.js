@@ -5,6 +5,7 @@ const Course = require('../controller/Course')
 const Student = require('../controller/Student')
 const Paper = require('../controller/Paper')
 const Message = require('../controller/Message')
+const Score = require('../controller/Score')
 
 router.use(async (ctx, next)=>{
    console.log(ctx.request.url)
@@ -56,5 +57,9 @@ router.get('/getStudentTestRecord',Paper.getStudentTestRecord)
 
 router.get('/getMessage',Message.getMessage)
 router.post('/addMessage',Message.addMessage)
+
+//score
+router.get('/getAllPaperName',Paper.getAllPaperName)
+router.get('/getScore',Score.getScore)
 
 module.exports = router

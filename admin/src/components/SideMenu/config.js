@@ -36,10 +36,10 @@ let nav = [
     ]
   },
   {
-    id: 'charts',
-    title: '图表分析',
+    id: 'paperscore',
+    title: '测验成绩',
     icon: 'pie-chart',
-    path: '/charts'
+    path: '/paperscore'
   },
   {
     id: 'setting',

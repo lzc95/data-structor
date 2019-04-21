@@ -33,4 +33,8 @@ module.exports={
 
     // 密码
     modifyPass: prefix +'/modifyPass',
+
+    //
+   getAllPaperName: prefix + '/getAllPaperName',
+   getScore: prefix + '/getScore' 
 }
