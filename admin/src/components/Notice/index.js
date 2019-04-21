@@ -158,11 +158,6 @@ class Notice extends React.Component {
                         <Icon type="pushpin" />
                         发布
                     </a>
-                    <Divider type="vertical" />
-                    <a href="javascript:;">
-                        <Icon type="down-square" />
-                        下架
-                    </a>
                     </span>
                 )
             }

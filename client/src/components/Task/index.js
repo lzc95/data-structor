@@ -3,6 +3,7 @@ import {List,Card, Button} from 'antd'
 import URL from '@/utils/url'
 import axios from '@/utils/axios'
 import Paper from './paper'
+import Cookies from 'js-cookie'
 
 import './style.less'
 class Task extends React.Component{
@@ -12,15 +13,24 @@ class Task extends React.Component{
             paperData:[],
             isTest:false,
             paperId:-1,
-            paperTitle:''
+            paperTitle:'',
+            record_paper:[],
+            status:'',
+            record:[],
+            currentRecord:[]
         }
     }
 
-    goTest(id, title){
+    goTest(id, title,status){
+        let currentRecord = this.state.record.filter(item=>{
+            return item.pId == id
+        })
         this.setState({
             paperId:id,
             paperTitle:title,
-            isTest:true
+            isTest:true,
+            status:status,
+            currentRecord:currentRecord
         })
     }
 
@@ -30,7 +40,7 @@ class Task extends React.Component{
         })
     }
 
-    componentDidMount(){
+    getAllPaper(){
         axios.get(URL.getAllPaper)
         .then(res=>{
             if(res.code == 0){
@@ -39,6 +49,30 @@ class Task extends React.Component{
                 })
             }
         })
+    }
+
+    getStudentTestRecord(){
+        axios.get(URL.getStudentTestRecord,{
+            params:{
+                uName:Cookies.get('studentName')
+            }
+        }).then(res=>{
+            if(res.code == 0){
+                let record_paper = res.data.map(item=>{
+                    return item.pId
+                })
+                this.setState({
+                    record_paper:record_paper,
+                    record:res.data
+                })
+                
+            }
+        })
+    }
+
+    componentDidMount(){
+        this.getAllPaper()
+        this.getStudentTestRecord()
     }
     render(){
         return(<div>
@@ -58,7 +92,12 @@ class Task extends React.Component{
                             <List.Item.Meta
                             title={<span>
                                 <span>{v.paper_title}</span>
-                                <Button type="primary" className='btn' onClick={()=>this.goTest(v.id, v.paper_title)}>前往测验</Button>
+                                <Button type="default" className='btn2'
+                                disabled={this.state.record_paper.indexOf(v.id) ==-1}
+                                onClick={()=>this.goTest(v.id, v.paper_title,'view')}>查看测验记录</Button>
+                                <Button type="primary" className='btn1' 
+                                disabled={this.state.record_paper.indexOf(v.id) !==-1}
+                                onClick={()=>this.goTest(v.id, v.paper_title,'edit')}>前往测验</Button>
                             </span>}
                             />
                         </List.Item>
@@ -70,6 +109,8 @@ class Task extends React.Component{
                 this.state.isTest && <Paper 
                 id={this.state.paperId} 
                 title={this.state.paperTitle}
+                status={this.state.status}
+                currentRecord={this.state.currentRecord}
                 gokPaperList={()=>this.gokPaperList()}/>
             }
         </div>)

@@ -17,6 +17,8 @@ module.exports={
     // 测试
     getAllPaper: prefix + '/getAllPaper',
     getPaperInfo: prefix + '/getPaperInfo',
+    submitPaper: prefix + '/submitPaper',
+    getStudentTestRecord: prefix + '/getStudentTestRecord',
 
     // 留言
     getMessage: prefix + '/getMessage',

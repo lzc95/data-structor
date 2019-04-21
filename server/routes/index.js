@@ -51,6 +51,8 @@ router.post('/addPaper', Paper.addPaper)
 router.get('/getAllPaper', Paper.getAllPaper)
 router.get('/getPaperInfo',Paper.getPaperInfo)
 router.get('/delPaper',Paper.delPaper)
+router.post('/submitPaper',Paper.submitPaper)
+router.get('/getStudentTestRecord',Paper.getStudentTestRecord)
 
 router.get('/getMessage',Message.getMessage)
 router.post('/addMessage',Message.addMessage)

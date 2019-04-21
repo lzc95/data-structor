@@ -210,6 +210,16 @@ exports.delPaper = ({...values})=>{
     return query(_sql);
 }
 
+exports.submitPaper = ({...values})=>{
+    let _sql =`insert into test_record (uName,pId,result,score) 
+    values('${values.uName}',${values.pId},'${values.result}','${values.score}')`;
+    return query(_sql);
+}
+exports.getStudentTestRecord = ({...values})=>{
+    let _sql =`select * from test_record where uName = '${values.uName}'`;
+    return query(_sql);
+}
+
 // =======================================留言===========================
 exports.getMessage = ({...values}) => {
     let _sql = `select * from message where tId = ${values.tId}`;

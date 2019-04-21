@@ -80,6 +80,28 @@ Paper.delPaper  = async (ctx, next) =>{
         }
     }
 }
+
+Paper.submitPaper  = async (ctx, next) =>{
+    let {uName,pId,result,score} = ctx.request.body;
+    let res = await model.submitPaper({uName,pId,result,score})
+    if(res){
+        ctx.body={
+            code:0,
+            msg:'提交成功'
+        }
+    }
+}
+
+Paper.getStudentTestRecord = async (ctx, next) =>{
+    let {uName} = ctx.request.query;
+    let res = await model.getStudentTestRecord({uName})
+    if(res){
+        ctx.body={
+            code:0,
+            data:res
+        }
+    }
+}
 module.exports = Paper;
 
 
